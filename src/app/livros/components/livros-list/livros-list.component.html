@@ -1,0 +1,36 @@
+ <mat-table [dataSource]="livros" >
+      <ng-container matColumnDef="nome">
+        <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{ row.nome }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="autor">
+        <mat-header-cell *matHeaderCellDef>Autor</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.autor }}
+          <mat-icon aria-hidden="false" aria-label="Example home icon"
+            >{{ row.autor | category }}
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="action-column ">
+          <button mat-mini-fab color="accent" aria-label="Adicionar um livro">
+            <mat-icon (click)="onAdd()">add</mat-icon>
+          </button>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="action-column ">
+          <button mat-icon-button color="accent" aria-label="Editar um livro">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" aria-label="Remover um livro">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
