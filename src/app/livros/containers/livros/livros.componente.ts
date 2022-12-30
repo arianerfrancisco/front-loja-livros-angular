@@ -14,7 +14,7 @@ import { ErrorDialogComponent } from '../../shared/components/error-dialog/error
   styleUrls: ['./livros.component.scss'],
 })
 export class LivrosComponent {
-  livros$: Observable<ILivro[]>;
+  livros$: Observable<ILivro[]> | null = null;
 
   displayedColumns = ['nome', 'autor', 'actions'];
 
@@ -38,5 +38,9 @@ export class LivrosComponent {
   }
   onAdd() {
     this.router.navigate(['novo'], { relativeTo: this.route });
+  }
+
+  onEdit(livro: ILivro) {
+    this.router.navigate(['edit', livro._id], { relativeTo: this.route });
   }
 }

@@ -10,12 +10,13 @@ import { ILivro } from '../../model/livro.interface';
 })
 export class LivrosListComponent implements OnInit {
   @Input() livros: ILivro[] = [];
+  @Output() add = new EventEmitter(false);
+  @Output() edit = new EventEmitter(false);
+  @Output() remove = new EventEmitter(false);
   // input: dados serão recebidos do componente pai
   // Isso foi garantido ao inserir
   // <app-livros-list *ngIf="livros$ | async as livros; else loading"
-  // [livros]="livros"></app-livros-list> no componente pai
-
-@Output() add = new EventEmitter(false);
+  // [livros]="livros" (add)="onAdd()"  (edit)="onEdit($event)" ></app-livros-list> no componente pai
 
   readonly displayedColumns = ['nome', 'autor', 'actions'];
 
@@ -24,5 +25,11 @@ export class LivrosListComponent implements OnInit {
   ngOnInit(): void {}
   onAdd() {
     this.add.emit(true);
+  }
+  onEdit(livro: ILivro) {
+    this.edit.emit(livro);
+  }
+  onDelete(livro: ILivro) {
+    this.remove.emit(livro);
   }
 }

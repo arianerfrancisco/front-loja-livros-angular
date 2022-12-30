@@ -15,9 +15,12 @@ export class LivrosService {
   public list() {
     return this.httpClient.get<ILivro[]>(this.API).pipe(
       first(), // obtém os dados na 1ª resposta e logo após a conexão é encerrada.
-      delay(1000), // para testar spinner
+      delay(500),
       tap((livros) => console.log(livros))
     );
+  }
+  loadById(id: string) {
+    return this.httpClient.get<ILivro>(`${this.API}/${id}`);
   }
   save(record: Partial<ILivro>) {
     return this.httpClient.post<ILivro>(this.API, record);

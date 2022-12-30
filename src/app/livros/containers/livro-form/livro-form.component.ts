@@ -2,6 +2,8 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { ILivro } from '../../model/livro.interface';
 
 import { LivrosService } from '../../services/livros.service';
 
@@ -21,10 +23,14 @@ export class LivroFormComponent implements OnInit {
     // NonNullableFormBuilder: garante a não inserção de valores nulos em quaisquer campos do formulario
     private service: LivrosService,
     private snackBar: MatSnackBar,
-    private location: Location
+    private location: Location,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const livro: ILivro = this.route.snapshot.data['livro'];
+    console.log(livro);
+  }
   onSubmit() {
     this.service.save(this.form.value).subscribe(
       (result) => this.onSucess(),
@@ -36,12 +42,12 @@ export class LivroFormComponent implements OnInit {
   }
   private onError() {
     {
-      this.snackBar.open('Erro ao salvar livro', '', { duration: 2000 });
+      this.snackBar.open('Erro ao salvar livro!', '', { duration: 2000 });
     }
   }
   private onSucess() {
     {
-      this.snackBar.open('Curso salvo com sucesso', '', { duration: 2000 });
+      this.snackBar.open('Curso salvo com sucesso!', '', { duration: 2000 });
       this.onCancel();
     }
   }
