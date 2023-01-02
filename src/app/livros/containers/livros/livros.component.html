@@ -6,6 +6,7 @@
       [livros]="livros"
       (add)="onAdd()"
       (edit)="onEdit($event)"
+      (remove)="onDelete($event)"
     ></app-livros-list>
 
     <ng-template #loading>

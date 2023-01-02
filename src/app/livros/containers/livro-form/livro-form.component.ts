@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { NonNullableFormBuilder } from '@angular/forms';
+import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { ILivro } from '../../model/livro.interface';
@@ -14,8 +14,12 @@ import { LivrosService } from '../../services/livros.service';
 })
 export class LivroFormComponent implements OnInit {
   form = this.formBuilder.group({
-    nome: [''],
-    autor: [''],
+    _id: [''],
+    nome: [
+      '',
+      [Validators.required, Validators.minLength(5), Validators.maxLength(100)],
+    ],
+    autor: ['', [Validators.required]],
   });
 
   constructor(
@@ -29,7 +33,11 @@ export class LivroFormComponent implements OnInit {
 
   ngOnInit(): void {
     const livro: ILivro = this.route.snapshot.data['livro'];
-    console.log(livro);
+    this.form.setValue({
+      _id: livro._id,
+      nome: livro.nome,
+      autor: livro.autor,
+    });
   }
   onSubmit() {
     this.service.save(this.form.value).subscribe(
@@ -47,8 +55,32 @@ export class LivroFormComponent implements OnInit {
   }
   private onSucess() {
     {
-      this.snackBar.open('Curso salvo com sucesso!', '', { duration: 2000 });
+      this.snackBar.open('Livro salvo com sucesso!', '', { duration: 2000 });
       this.onCancel();
     }
+  }
+
+  getErrorMessage(fieldName: string) {
+    const field = this.form.get(fieldName);
+
+    if (field?.hasError('required')) {
+      return 'Campo obrigatório';
+    }
+
+    if (field?.hasError('minlength')) {
+      const requiredLength: number = field.errors
+        ? field.errors['minlength']['requiredLength']
+        : 5;
+      return `Tamanho mínimo precisa ser de ${requiredLength} caracteres.`;
+    }
+
+    if (field?.hasError('maxlength')) {
+      const requiredLength: number = field.errors
+        ? field.errors['maxlength']['requiredLength']
+        : 200;
+      return `Tamanho máximo excedido de ${requiredLength} caracteres.`;
+    }
+
+    return 'Campo Inválido';
   }
 }

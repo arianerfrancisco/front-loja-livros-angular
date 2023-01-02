@@ -25,7 +25,7 @@
         <mat-icon>add</mat-icon>
       </button>
     </mat-header-cell>
-    
+
     <mat-cell *matCellDef="let row" class="action-column">
       <button
         mat-icon-button
@@ -35,7 +35,12 @@
       >
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-icon-button color="warn" aria-label="Remover um livro">
+      <button
+        mat-icon-button
+        color="warn"
+        aria-label="Remover um livro"
+        (click)="onDelete(row)"
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>
