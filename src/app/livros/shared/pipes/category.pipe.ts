@@ -6,12 +6,14 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CategoryPipe implements PipeTransform {
   transform(value: string): string {
     switch (value) {
-      case 'autor 1':
-        return 'group';
-      case 'autor 3':
-        return 'person';
+      case 'Romance':
+        return 'favorite';
+      case 'Suspense':
+        return 'search off';
+      case 'Drama':
+        return 'sentiment_dissatisfied';
     }
 
-    return 'code';
+    return 'check small';
   }
 }

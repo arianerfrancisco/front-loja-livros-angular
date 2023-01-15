@@ -18,7 +18,7 @@ export class LivrosListComponent implements OnInit {
   // <app-livros-list *ngIf="livros$ | async as livros; else loading"
   // [livros]="livros" (add)="onAdd()"  (edit)="onEdit($event)" ></app-livros-list> no componente pai
 
-  readonly displayedColumns = ['nome', 'autor', 'actions'];
+  readonly displayedColumns = ['nome', 'autor', 'genero','actions'];
 
   constructor() {}
 

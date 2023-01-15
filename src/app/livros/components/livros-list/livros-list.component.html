@@ -8,8 +8,15 @@
     <mat-header-cell *matHeaderCellDef>Autor</mat-header-cell>
     <mat-cell *matCellDef="let row">
       {{ row.autor }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="genero">
+    <mat-header-cell *matHeaderCellDef>Gênero</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      {{ row.genero  }}
       <mat-icon aria-hidden="false" aria-label="Example home icon"
-        >{{ row.autor | category }}
+        >{{ row.genero  | category }}
       </mat-icon>
     </mat-cell>
   </ng-container>

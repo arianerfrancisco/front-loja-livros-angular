@@ -20,6 +20,7 @@ export class LivroFormComponent implements OnInit {
       [Validators.required, Validators.minLength(5), Validators.maxLength(100)],
     ],
     autor: ['', [Validators.required]],
+    genero: [''],
   });
 
   constructor(
@@ -37,6 +38,7 @@ export class LivroFormComponent implements OnInit {
       _id: livro._id,
       nome: livro.nome,
       autor: livro.autor,
+      genero: livro.genero,
     });
   }
   onSubmit() {
